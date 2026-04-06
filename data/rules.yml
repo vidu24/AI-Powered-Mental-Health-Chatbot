@@ -1,0 +1,37 @@
+
+
+# In rules.yml (replace the whole file)
+
+version: "3.1"
+
+rules:
+- rule: Activate free talk via intent
+  steps:
+  - intent: free_talk
+  - action: action_llm_response
+
+- rule: Activate free talk on NLU fallback
+  steps:
+  - intent: nlu_fallback
+  - action: action_llm_response
+
+- rule: Continue free talk
+  condition:
+  # This rule will run if the free_talk slot is set to true
+  - active_loop: null
+  - slot_was_set:
+    - free_talk: true
+  steps:
+  # This action will be predicted for any user utterance
+  # as long as the 'goodbye' intent rule below isn't triggered first.
+  - action: action_llm_response
+
+- rule: Exit free talk
+  condition:
+  # This rule is MORE SPECIFIC because it requires both a slot and an intent.
+  - active_loop: null
+  - slot_was_set:
+    - free_talk: true
+  steps:
+  - intent: goodbye
+  - action: action_exit_free_talk

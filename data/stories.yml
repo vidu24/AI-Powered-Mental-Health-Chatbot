@@ -1,0 +1,71 @@
+
+
+version: "3.1"
+
+stories:
+
+- story: happy path (english)
+  steps:
+  - slot_was_set:
+    - free_talk: false
+  - slot_was_set:
+    - language: "en"
+  - intent: mood_great
+  - action: utter_happy_en
+
+- story: happy path (hindi)
+  steps:
+  - slot_was_set:
+    - free_talk: false
+  - slot_was_set:
+    - language: "hi"
+  - intent: mood_great
+  - action: utter_happy_hi
+
+- story: sad path 1 (english)
+  steps:
+  - slot_was_set:
+    - free_talk: false
+  - slot_was_set:
+    - language: "en"
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help_en
+  - intent: affirm
+  - action: utter_happy_en
+
+- story: sad path 1 (hindi)
+  steps:
+  - slot_was_set:
+    - free_talk: false
+  - slot_was_set:
+    - language: "hi"
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help_hi
+  - intent: affirm
+  - action: utter_happy_hi
+
+- story: sad path 2 (english)
+  steps:
+  - slot_was_set:
+    - free_talk: false
+  - slot_was_set:
+    - language: "en"
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help_en
+  - intent: deny
+  - action: utter_goodbye_en
+
+- story: sad path 2 (hindi)
+  steps:
+  - slot_was_set:
+    - free_talk: false
+  - slot_was_set:
+    - language: "hi"
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help_hi
+  - intent: deny
+  - action: utter_goodbye_hi

@@ -1,0 +1,177 @@
+
+
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - feeling_anxious
+  - feeling_depressed
+  - coping_strategies
+  - ask_help
+  - free_talk
+
+entities:
+  - mood
+
+slots:
+  mood:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: mood
+      - type: from_text
+
+  language:
+    type: categorical
+    values:
+      - en
+      - hi
+    influence_conversation: false
+    mappings:
+      - type: from_text
+    
+  free_talk:
+    type: bool
+    initial_value: false
+    influence_conversation: false
+    mappings:
+      # We keep a simple from_text mapping so Rasa validation is happy.
+      # The slot will usually be set by actions (SlotSet), not by text extraction.
+      - type: from_text
+
+  free_talk_history:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_text
+
+responses:
+  # Generic utterances
+  utter_greet:
+    - text: "Hello, I’m here for you. How are you feeling today?"
+
+  utter_goodbye:
+    - text: "Take care of yourself. Remember, you’re not alone."
+
+  utter_affirm:
+    - text: "That’s great to hear. I’m glad."
+
+  utter_deny:
+    - text: "That’s okay, no pressure."
+
+  utter_mood_great:
+    - text: "That’s wonderful! I’m glad you’re feeling good. Keep it up."
+
+  utter_mood_unhappy:
+    - text: "I’m sorry you’re feeling down. Do you want to talk about it?"
+
+  utter_bot_challenge:
+    - text: "I’m a chatbot designed to support mental health conversations."
+
+  utter_feeling_anxious:
+    - text: "It sounds like you’re feeling anxious. Try taking a few deep breaths. Would you like me to share some coping strategies?"
+
+  utter_feeling_depressed:
+    - text: "I’m really sorry you’re going through this. Talking can help. Would you like some strategies to cope?"
+
+  utter_coping_strategies:
+    - text: |
+        Here are a few coping strategies that might help:
+        - Try slow breathing exercises
+        - Write down your thoughts
+        - Go for a short walk
+        - Reach out to a trusted friend or family member
+
+  utter_ask_help:
+    - text: |
+        It’s really important to reach out when you need help. 
+        You can talk to a counselor, a close friend, or a mental health professional. 
+        If you are in crisis, please reach out to your local emergency number or a crisis hotline.
+
+  utter_did_that_help:
+    - text: "Did that help you?"
+
+  utter_cheer_up:
+    - text: "I'm sorry you're feeling down. Here's something that might help 💜"
+      image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_happy:
+    - text: "I'm glad that's helped — hang on to that feeling."
+
+  # Language-tagged variants (kept to avoid missing-action errors)
+  utter_greet_en:
+    - text: "Hello, I’m here for you. How are you feeling today?"
+  utter_greet_hi:
+    - text: "नमस्ते! मैं आपकी कैसे मदद कर सकता/सकती हूँ?"
+
+  utter_goodbye_en:
+    - text: "Take care of yourself. Remember, you’re not alone."
+  utter_goodbye_hi:
+    - text: "अपना ध्यान रखना — आप अकेले नहीं हैं।"
+
+  utter_cheer_up_en:
+    - text: "I'm sorry you're feeling down. Here's something that might help 💜"
+      image: "https://i.imgur.com/nGF1K8f.jpg"
+  utter_cheer_up_hi:
+    - text: "मुझे खेद है कि आप उदास महसूस कर रहे हैं। यह शायद मदद करे।"
+
+  utter_coping_strategies_en:
+    - text: |
+        Here are a few coping strategies that might help:
+        - Try slow breathing exercises
+        - Write down your thoughts
+        - Go for a short walk
+        - Reach out to a trusted friend or family member
+  utter_coping_strategies_hi:
+    - text: |
+        कुछ तरीका जो मदद कर सकते हैं:
+        - धीमी साँस लेने की कसरत
+        - अपने विचार लिखें
+        - थोड़ी दूर टहल लें
+        - किसी भरोसेमंद से बात करें
+
+  utter_did_that_help_en:
+    - text: "Did that help you?"
+  utter_did_that_help_hi:
+    - text: "क्या इससे मदद मिली?"
+
+  utter_happy_en:
+    - text: "I'm glad that's helped — hang on to that feeling."
+  utter_happy_hi:
+    - text: "यह जानकर खुशी हुई — इसे बनाए रखें।"
+
+  utter_ask_help_en:
+    - text: |
+        It’s really important to reach out when you need help. 
+        You can talk to a counselor, a close friend, or a mental health professional. 
+        If you are in crisis, please reach out to your local emergency number or a crisis hotline.
+  utter_ask_help_hi:
+    - text: |
+        मदद माँगना महत्वपूर्ण है। आप काउंसलर, भरोसेमंद दोस्त, या प्रोफेशनल से बात कर सकते हैं।
+        अगर संकट है तो कृपया स्थानीय आपातकालीन नंबर पर संपर्क करें।
+
+  utter_feeling_anxious_en:
+    - text: "It sounds like you’re feeling anxious. Try taking a few deep breaths. Would you like me to share some coping strategies?"
+  utter_feeling_anxious_hi:
+    - text: "ऐसा लगता है कि आप चिंतित हैं। कुछ गहरी साँसें लें — क्या मैं कुछ तरीके बताऊँ?"
+
+  utter_feeling_depressed_en:
+    - text: "I’m really sorry you’re going through this. Talking can help. Would you like some strategies to cope?"
+  utter_feeling_depressed_hi:
+    - text: "मुझे खेद है कि आप यह महसूस कर रहे हैं। बात करने से मदद मिल सकती है — क्या आप सुझाव सुनना चाहेंगे?"
+
+actions:
+  - action_detect_language
+  - action_llm_response
+  - action_exit_free_talk
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
