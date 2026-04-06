@@ -1,0 +1,13 @@
+.env
+venv3.10/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.vscode/
+.idea/
+.DS_Store
+.rasa/
+models/
